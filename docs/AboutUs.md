@@ -28,14 +28,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Grunt
 * Responsibilities: A little bit of everything
 
-### Johnny Doe
+### Guo Keming
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/kemango.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/Kemango)]
 
-* Role: Developer
-* Responsibilities: Data
+* About me: Year 2 CS Student 
+* Hobby: Running
+* Role: Code quality
+* Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
 
 ### Jean Doe
 
