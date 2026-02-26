@@ -35,7 +35,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/Kemango)]
 
 * About me: Year 2 CS Student 
-* Hobby: Running
+* Hobby: Running, Photography
 * Role: Code quality
 * Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
 
