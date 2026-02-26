@@ -19,15 +19,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Yong Kin Yean (Kingsley)
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/kinyean.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/kinyean)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Grunt
+* Responsibilities: A little bit of everything
 
 ### Johnny Doe
 
