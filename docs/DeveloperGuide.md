@@ -262,71 +262,170 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* Has a need to manage a significant number of internship applications and company contacts
+* Prefers desktop applications over web or mobile application
+* can type fast and prefers keyboard interactions over mouse usage
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* CS Student Looking for employment 
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Provide a convenient way to keep track of internship applications and current status. Allow easy access to company information and contact details. Manage applications faster than a typical mouse/GUI driven app. 
+
+- (Company) Store: Name, Address, Website, Contact info
+- (Personal) Store: Date of Application, Current states
+- Interview Info: Tech stack, Interview question/tips
+- Personal Review
+
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …                      | I want to …                                                                 | So that I can…                                                   |
+|----------|-----------------------------|-----------------------------------------------------------------------------|------------------------------------------------------------------|
+| `* * *`  | user                        | add new company information (name, personal login details, email, website, address, etc.) | organise my internship applications in one place                 |
+| `* * *`  | user                        | add an application status and application date                             | track the progress of each internship application                |
+| `* * *`  | user                        | view all my job applications and their current statuses                    | easily monitor my overall application progress                   |
+| `* * *`  | user                        | delete a company entry                                                      | remove applications that I no longer need                        |
+| `* * *`  | user                        | update the status of a job application                                      | keep my application records accurate and up to date              |
+| `* * *`  | user                        | get a help message showing available commands                            | refer to instructions when I forget how to use the App. (not necessary needed at this stage maybe) |
 
-*{More to be added}*
 
-### Use cases
+## Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+### UC01 - Add Application
 
-**Use case: Delete a person**
+Main Success Scenario:
+1. User enters an add command with required parameters (company name, role, status, date).
+2. HireME validates the input parameters.
+3. HireME checks for duplicate applications.
+4. HireME creates a new application entry.
+5. HireME displays a success message: "New application added: COMPANY_NAME".
+Use case ends.
 
-**MSS**
+Extensions:
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+- 2a. Invalid parameter format detected.
+  - 2a1. HireME detects invalid input (e.g., wrong date format, invalid email, invalid status).
+  - 2a2. HireME displays an appropriate error message.
+  - 2a3. No application is added. Use case ends.
 
-    Use case ends.
+- 3a. Duplicate application detected.
+  - 3a1. HireME detects an existing application with the same Company Name and Role.
+  - 3a2. HireME displays: "An application for this job of the same company already exists."
+  - 3a3. No application is added. Use case ends.
 
-**Extensions**
+---
 
-* 2a. The list is empty.
+### UC02 - Update Application Status After Receiving an Interview Invitation
 
-  Use case ends.
+Preconditions: At least one application exists in HireME.
 
-* 3a. The given index is invalid.
+Main Success Scenario:
+1. User requests to view all applications.
+2. HireME displays all stored applications.
+3. User selects an application to update.
+4. User specifies the new status for the application.
+5. HireME validates the provided information.
+6. HireME updates the application record and saves it.
+Use case ends.
 
-    * 3a1. AddressBook shows an error message.
+Extensions:
 
-      Use case resumes at step 2.
+- 3a. The specified application does not exist.
+  - 3a1. HireME informs the user that the application is invalid. Use case ends.
 
-*{More to be added}*
+- 4a. The specified status is invalid.
+  - 4a1. HireME informs the user of acceptable status values.
+<br> Use case ends.
 
-### Non-Functional Requirements
+- *a. User cancels the operation at any time.
+<br>  Use case ends.
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+---
 
-*{More to be added}*
+### UC03 - List Applications
 
-### Glossary
+Main Success Scenario:
+1. User requests to list applications.
+2. HireME retrieves all the saved applications.
+3. HireME displays the full list of applications with their details (company name, role, status, date, etc.).
+Use case ends.
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+Extensions:
+
+- 3a. No applications have been added yet.
+  - 3a1. HireME displays the message "You have not added any applications." Use case ends.
+
+- 3b. An error occurs while loading the application data.
+  - 3b1. HireME displays the message "Error loading list of applications." Use case ends.
+
+---
+
+### UC04 - Delete an Application
+
+Main Success Scenario:
+1. User requests to list job applications (UC03).
+2. HireME shows a list of job applications.
+3. User requests to delete a specific job application in the list.
+4. HireME deletes the job application.
+Use case ends.
+
+Extensions:
+
+- 2a. The list is empty. Use case ends.
+
+- 3a. The given index is invalid.
+  - 3a1. HireME shows an error message. Use case resumes at step 2.
+
+---
+
+### UC05 - Open Help
+
+Main Success Scenario:
+1. User requests to view help information (enters help).
+2. HireME displays a list of available commands and their formats (e.g., add, list, edit, delete, help) in the result box.
+3. User reads the command formats to learn/recall how to use the system.
+Use case ends.
+
+---
+
+## Non-Functional Requirements (NFRs)
+
+### Usability
+- A user who is comfortable with CLI should be able to complete core tasks (add, delete, edit, list) faster than using a mouse driven GUI.
+- A new user should be able to learn the basic commands within 10 minutes using only the help command.
+- Command formats shall follow a consistent prefix-based structure (e.g., n/, r/, s/) to ensure predictability.
+- The system shall provide clear and specific error messages for invalid commands or parameters.
+- Core tasks should be executable without requiring mouse interaction.
+
+### Reliability
+- All user data should be saved automatically after a save command is received.
+
+### Portability
+- The application should work on Windows, macOS, and Linux with Java 17 or above installed.
+- The application should not require an internet connection to function.
+
+### Maintainability
+- The codebase should follow consistent coding standards so that a new developer can understand and contribute within a reasonable onboarding period.
+
+### Data Integrity
+- The application should validate all user inputs and reject invalid data with clear error messages without crashing.
+- Duplicate applications sharing the same company name and role should be automatically detected and rejected.
+
+### Scalability
+- The application should remain functional and responsive with up to 1000 application entries stored.
+
+---
+
+## Glossary
+
+| Term | Definition |
+|------|------------|
+| Mainstream OS | Windows, Linux, MacOS |
+| Private contact detail | A contact detail that is not meant to be shared with others |
+
 
 --------------------------------------------------------------------------------------------------------------------
 
