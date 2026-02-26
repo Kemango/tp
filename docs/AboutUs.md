@@ -47,12 +47,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### LOH WAI KIT (Jamie)
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jamieloh.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/jamieloh)] 
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: A little bit of everything
