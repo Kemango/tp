@@ -9,16 +9,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
 ### Yong Kin Yean (Kingsley)
 
 <img src="images/kinyean.png" width="200px">
@@ -39,22 +29,29 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Code quality
 * Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
 
-### Jean Doe
+### Nuowen Qian
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/nuowenq.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/NuowenQ)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### LOH WAI KIT (Jamie)
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jamieloh.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/jamieloh)] 
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: A little bit of everything
+
+### Leomarbel (Daryl Teoh)
+
+<img src="images/leomarbel.png" width="200px">
+
+[[github](http://github.com/leomarbel)]
+
+* Role: Developer
+* Responsibilities: A little bit of everything
