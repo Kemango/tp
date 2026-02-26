@@ -9,16 +9,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
 ### Yong Kin Yean (Kingsley)
 
 <img src="images/kinyean.png" width="200px">
@@ -48,6 +38,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
+### LOH WAI KIT (Jamie)
+
+<img src="images/jamieloh.png" width="200px">
+
+[[github](http://github.com/jamieloh)] 
+
+* Role: Developer
+* Responsibilities: A little bit of everything
+
 ### Leomarbel (Daryl Teoh)
 
 <img src="images/leomarbel.png" width="200px">
@@ -55,4 +54,4 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/leomarbel)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: A little bit of everything
