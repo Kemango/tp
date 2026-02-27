@@ -111,7 +111,8 @@ class JsonAdaptedPerson {
         if (remark == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
         }
-        final Remark modelRemark = (remark == null) ? new Remark("") : new Remark(remark);        final Address modelAddress = new Address(address);
+        final Remark modelRemark = (remark == null) ? new Remark("") : new Remark(remark);        
+        final Address modelAddress = new Address(address);
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
     }
