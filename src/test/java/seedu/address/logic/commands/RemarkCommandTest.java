@@ -36,14 +36,10 @@ public class RemarkCommandTest {
         public void execute_addRemarkUnfilteredList_success() {
             Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
             Person editedPerson = new PersonBuilder(firstPerson).withRemark(REMARK_STUB).build();
-        
             RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(editedPerson.getRemark().value));
-        
             String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
-        
             Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
             expectedModel.setPerson(firstPerson, editedPerson);
-        
             assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
         }
 
@@ -51,15 +47,11 @@ public class RemarkCommandTest {
         public void execute_deleteRemarkUnfilteredList_success() {
             Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
             Person editedPerson = new PersonBuilder(firstPerson).withRemark("").build();
-
             RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON,
                     new Remark(editedPerson.getRemark().toString()));
-
             String expectedMessage = String.format(RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS, editedPerson);
-
             Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
             expectedModel.setPerson(firstPerson, editedPerson);
-
             assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
         }
 
@@ -68,16 +60,15 @@ public class RemarkCommandTest {
             showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
             Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-            Person editedPerson = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
-                    .withRemark(REMARK_STUB).build();
+            Person editedPerson = new PersonBuilder(model.getFilteredPersonList()
+                    .get(INDEX_FIRST_PERSON.getZeroBased())).withRemark(REMARK_STUB).build();
 
-            RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(editedPerson.getRemark().value));
+            RemarkCommand remarkCommand = 
+                    new RemarkCommand(INDEX_FIRST_PERSON, new Remark(editedPerson.getRemark().value));
 
             String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
-
             Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
             expectedModel.setPerson(firstPerson, editedPerson);
-
             assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
         }
 
@@ -99,9 +90,7 @@ public class RemarkCommandTest {
             Index outOfBoundIndex = INDEX_SECOND_PERSON;
             // ensures that outOfBoundIndex is still in bounds of address book list
             assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-
             RemarkCommand remarkCommand = new RemarkCommand(outOfBoundIndex, new Remark(VALID_REMARK_BOB));
-
             assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
