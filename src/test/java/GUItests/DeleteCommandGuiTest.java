@@ -11,8 +11,10 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.util.WaitForAsyncUtils;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import seedu.address.logic.Messages;
@@ -50,9 +52,11 @@ public class DeleteCommandGuiTest {
     @Test
     public void delete_firstPerson_success(FxRobot robot) {
         // Set the command text and fire the action on the FX thread to ensure the CommandBox handles it.
-        robot.clickOn("#commandTextField");
-        robot.write(DeleteCommand.COMMAND_WORD + " 1");
-        robot.push(KeyCode.ENTER);
+        robot.interact(() -> {
+            TextField commandField = robot.lookup("#commandTextField").queryAs(TextField.class);
+            commandField.setText(DeleteCommand.COMMAND_WORD + " 1");
+            commandField.fireEvent(new ActionEvent());
+        });
 
         // ensure UI updated
         WaitForAsyncUtils.waitForFxEvents();
@@ -72,9 +76,11 @@ public class DeleteCommandGuiTest {
     @Test
     public void delete_invalidIndex_fail(FxRobot robot) {
         int invalidIndex = initialListSize + 1; // out of bounds
-        robot.clickOn("#commandTextField");
-        robot.write(DeleteCommand.COMMAND_WORD + " " + invalidIndex);
-        robot.push(KeyCode.ENTER);
+        robot.interact(() -> {
+            TextField commandField = robot.lookup("#commandTextField").queryAs(TextField.class);
+            commandField.setText(DeleteCommand.COMMAND_WORD + " " + invalidIndex);
+            commandField.fireEvent(new ActionEvent());
+        });
 
         WaitForAsyncUtils.waitForFxEvents();
 
