@@ -22,11 +22,37 @@ checkstyle {
 
 test {
     useJUnitPlatform()
-    // Export internal JavaFX package needed by TestFX on Java 17
+
     jvmArgs = [
-        '--add-exports=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED'
+            '--add-exports=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED',
+            '--add-exports=javafx.graphics/com.sun.glass.ui=ALL-UNNAMED',
+            '--add-opens=javafx.graphics/com.sun.glass.ui=ALL-UNNAMED',
+            '--add-exports=javafx.graphics/com.sun.javafx.util=ALL-UNNAMED',
+            '--add-exports=javafx.base/com.sun.javafx.logging=ALL-UNNAMED',
+            '-Djava.awt.headless=true',
+            '-Dtestfx.robot=glass',
+            '-Dtestfx.headless=true',
+            '-Dprism.order=sw',
+            '-Dprism.text=t2k',
+            '-Dglass.platform=Monocle',
+            '-Dmonocle.platform=Headless',
     ]
+
     finalizedBy jacocoTestReport
+}
+
+// Run this locally with: ./gradlew testGui
+task testGui(type: Test) {
+    useJUnitPlatform()
+
+    jvmArgs = [
+            '--add-exports=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED',
+            '--add-exports=javafx.graphics/com.sun.glass.ui=ALL-UNNAMED',
+            '--add-opens=javafx.graphics/com.sun.glass.ui=ALL-UNNAMED',
+    ]
+
+    // Only run GUI tests
+    include '**/DeleteCommandGuiTest*'
 }
 
 task coverage(type: JacocoReport) {
