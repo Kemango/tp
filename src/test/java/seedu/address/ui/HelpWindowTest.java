@@ -52,6 +52,9 @@ public class HelpWindowTest {
                 helpWindow.show();
                 assertTrue(helpWindow.isShowing());
 
+                helpWindow.focus();
+                assertTrue(helpWindow.getRoot().isFocused());
+
                 helpWindow.hide();
                 assertFalse(helpWindow.isShowing());
             } finally {
