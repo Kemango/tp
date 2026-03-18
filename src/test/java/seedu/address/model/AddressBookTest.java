@@ -44,7 +44,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateApplications_throwsDuplicateApplicationException() {
         // Two applications with the same identity fields
         Application editedAlice = new ApplicationBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND)
@@ -56,23 +56,23 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_nullApplication_throwsNullPointerException() {
+    public void hasApplication_nullApplication_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasApplication(null));
     }
 
     @Test
-    public void hasPerson_applicationNotInAddressBook_returnsFalse() {
+    public void hasApplication_applicationNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasApplication(ALICE));
     }
 
     @Test
-    public void hasPerson_applicationInAddressBook_returnsTrue() {
+    public void hasApplication_applicationInAddressBook_returnsTrue() {
         addressBook.addApplication(ALICE);
         assertTrue(addressBook.hasApplication(ALICE));
     }
 
     @Test
-    public void hasPerson_applicationWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasApplication_applicationWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addApplication(ALICE);
         Application editedAlice = new ApplicationBuilder(ALICE)
                 .withAddress(VALID_ADDRESS_BOB)
@@ -82,7 +82,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getApplicationList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getApplicationList().remove(0));
     }
 

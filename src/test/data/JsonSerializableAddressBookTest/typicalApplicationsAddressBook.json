@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Application values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "AddressBook save file which contains the same Application values as in TypicalApplications#getTypicalAddressBook()",
   "applications": [ {
     "companyName": "Alice Pauline",
     "role" : "Machine Learning Engineer",

@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the application in the {@code model}'s application list at {@code index}.
      */
-    public static Application getPerson(Model model, Index index) {
+    public static Application getApplication(Model model, Index index) {
         return model.getFilteredApplicationList().get(index.getZeroBased());
     }
 }

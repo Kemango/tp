@@ -84,13 +84,13 @@ public class TypicalApplications {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Application application : getTypicalPersons()) {
+        for (Application application : getTypicalApplications()) {
             ab.addApplication(application);
         }
         return ab;
     }
 
-    public static List<Application> getTypicalPersons() {
+    public static List<Application> getTypicalApplications() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

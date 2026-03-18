@@ -24,23 +24,23 @@ public class UniqueApplicationListTest {
     private final UniqueApplicationList uniqueApplicationList = new UniqueApplicationList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullApplication_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueApplicationList.contains(null));
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_applicationNotInList_returnsFalse() {
         assertFalse(uniqueApplicationList.contains(ALICE));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_applicationInList_returnsTrue() {
         uniqueApplicationList.add(ALICE);
         assertTrue(uniqueApplicationList.contains(ALICE));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_applicationWithSameIdentityFieldsInList_returnsTrue() {
         uniqueApplicationList.add(ALICE);
         Application editedAlice = new ApplicationBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND)
@@ -49,33 +49,33 @@ public class UniqueApplicationListTest {
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullApplication_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueApplicationList.add(null));
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateApplication_throwsDuplicateApplicationException() {
         uniqueApplicationList.add(ALICE);
         assertThrows(DuplicateApplicationException.class, () -> uniqueApplicationList.add(ALICE));
     }
 
     @Test
-    public void setPerson_nullTargetApplication_throwsNullPointerException() {
+    public void setApplication_nullTargetApplication_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueApplicationList.setApplication(null, ALICE));
     }
 
     @Test
-    public void setPerson_nullEditedApplication_throwsNullPointerException() {
+    public void setApplication_nullEditedApplication_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueApplicationList.setApplication(ALICE, null));
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsApplicationNotFoundException() {
+    public void setApplication_targetApplicationNotInList_throwsApplicationNotFoundException() {
         assertThrows(ApplicationNotFoundException.class, () -> uniqueApplicationList.setApplication(ALICE, ALICE));
     }
 
     @Test
-    public void setPerson_editedPersonIsSameApplication_success() {
+    public void setApplication_editedApplicationIsSameApplication_success() {
         uniqueApplicationList.add(ALICE);
         uniqueApplicationList.setApplication(ALICE, ALICE);
         UniqueApplicationList expectedUniqueApplicationList = new UniqueApplicationList();
@@ -84,7 +84,7 @@ public class UniqueApplicationListTest {
     }
 
     @Test
-    public void setPerson_editedApplicationHasSameIdentity_success() {
+    public void setApplication_editedApplicationHasSameIdentity_success() {
         uniqueApplicationList.add(ALICE);
         Application editedAlice = new ApplicationBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND)
@@ -96,7 +96,7 @@ public class UniqueApplicationListTest {
     }
 
     @Test
-    public void setPerson_editedApplicationHasDifferentIdentity_success() {
+    public void setApplication_editedApplicationHasDifferentIdentity_success() {
         uniqueApplicationList.add(ALICE);
         uniqueApplicationList.setApplication(ALICE, BOB);
         UniqueApplicationList expectedUniqueApplicationList = new UniqueApplicationList();
@@ -105,24 +105,24 @@ public class UniqueApplicationListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicateApplicationException() {
+    public void setApplication_editedApplicationHasNonUniqueIdentity_throwsDuplicateApplicationException() {
         uniqueApplicationList.add(ALICE);
         uniqueApplicationList.add(BOB);
         assertThrows(DuplicateApplicationException.class, () -> uniqueApplicationList.setApplication(ALICE, BOB));
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullApplication_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueApplicationList.remove(null));
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_applicationDoesNotExist_throwsApplicationNotFoundException() {
         assertThrows(ApplicationNotFoundException.class, () -> uniqueApplicationList.remove(ALICE));
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingApplication_removesApplication() {
         uniqueApplicationList.add(ALICE);
         uniqueApplicationList.remove(ALICE);
         UniqueApplicationList expectedUniqueApplicationList = new UniqueApplicationList();
@@ -136,7 +136,7 @@ public class UniqueApplicationListTest {
     }
 
     @Test
-    public void setApplications_uniquePersonList_replacesOwnListWithProvidedUniqueApplicationList() {
+    public void setApplications_uniqueApplicationList_replacesOwnListWithProvidedUniqueApplicationList() {
         uniqueApplicationList.add(ALICE);
         UniqueApplicationList expectedUniqueApplicationList = new UniqueApplicationList();
         expectedUniqueApplicationList.add(BOB);
@@ -160,7 +160,7 @@ public class UniqueApplicationListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicateApplications_throwsDuplicateApplicationException() {
+    public void setApplications_listWithDuplicateApplications_throwsDuplicateApplicationException() {
         List<Application> listWithDuplicateApplications = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicateApplicationException.class, ()
                 -> uniqueApplicationList.setApplications(listWithDuplicateApplications));

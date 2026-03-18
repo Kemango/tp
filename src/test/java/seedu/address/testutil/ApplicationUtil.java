@@ -24,13 +24,13 @@ public class ApplicationUtil {
      * Returns an add command string for adding the {@code application}.
      */
     public static String getAddCommand(Application application) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(application);
+        return AddCommand.COMMAND_WORD + " " + getApplicationDetails(application);
     }
 
     /**
      * Returns the part of command string for the given {@code application}'s details.
      */
-    public static String getPersonDetails(Application application) {
+    public static String getApplicationDetails(Application application) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + application.getCompanyName().fullCompanyName + " ");
         sb.append(PREFIX_ROLE + application.getRole().value + " ");
@@ -47,7 +47,7 @@ public class ApplicationUtil {
     /**
      * Returns the part of command string for the given {@code EditApplicationDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditCommand.EditApplicationDescriptor descriptor) {
+    public static String getEditApplicationDescriptorDetails(EditCommand.EditApplicationDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getCompanyName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullCompanyName).append(" "));
         descriptor.getRole().ifPresent(role -> sb.append(PREFIX_ROLE).append(role.value).append(" "));

@@ -73,30 +73,30 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullApplication_throwsNullPointerException() {
+    public void hasApplication_nullApplication_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasApplication(null));
     }
 
     @Test
-    public void hasPerson_applicationNotInAddressBook_returnsFalse() {
+    public void hasApplication_applicationNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasApplication(ALICE));
     }
 
     @Test
-    public void hasPerson_applicationInAddressBook_returnsTrue() {
+    public void hasApplication_applicationInAddressBook_returnsTrue() {
         modelManager.addApplication(ALICE);
         assertTrue(modelManager.hasApplication(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredApplicationList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
                 -> modelManager.getFilteredApplicationList().remove(0));
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withApplication(ALICE).withApplication(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 

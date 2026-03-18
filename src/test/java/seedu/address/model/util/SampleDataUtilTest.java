@@ -11,14 +11,14 @@ import seedu.address.model.application.Application;
 public class SampleDataUtilTest {
 
     @Test
-    public void getSamplePersons_returnsCorrectNumberOfApplications() {
+    public void getSampleApplications_returnsCorrectNumberOfApplications() {
         Application[] applications = SampleDataUtil.getSampleApplications();
         assertNotNull(applications);
         assertEquals(6, applications.length);
     }
 
     @Test
-    public void getSamplePersons_applicationsHaveValidDates() {
+    public void getSampleApplications_applicationsHaveValidDates() {
         Application[] applications = SampleDataUtil.getSampleApplications();
         for (Application application : applications) {
             assertNotNull(application.getDate());
@@ -26,7 +26,7 @@ public class SampleDataUtilTest {
     }
 
     @Test
-    public void getSampleAddressBook_containsSamplePersons() {
+    public void getSampleAddressBook_containsSampleApplications() {
         ReadOnlyAddressBook addressBook = SampleDataUtil.getSampleAddressBook();
         assertNotNull(addressBook);
         assertEquals(6, addressBook.getApplicationList().size());
