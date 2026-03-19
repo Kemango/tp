@@ -96,7 +96,11 @@ public class ApplicationBuilder {
      * Sets the {@code Email} of the {@code Application} that we are building.
      */
     public ApplicationBuilder withEmail(String email) {
-        this.email = new Email(email);
+        if (email == null) {
+            this.email = null;
+        } else {
+            this.email = new Email(email);
+        }
         return this;
     }
 

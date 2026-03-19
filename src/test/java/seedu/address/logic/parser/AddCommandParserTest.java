@@ -172,6 +172,12 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_AMY + ROLE_DESC_FRONTEND_DEVELOPER + EMAIL_DESC_AMY
                         + WEBSITE_DESC_AMY + ADDRESS_DESC_AMY + DATE_DESC_AMY,
                 new AddCommand(expectedApplication));
+
+        // missing email prefix
+        Application expectedApplicationNoEmail = new ApplicationBuilder(BOB).withEmail(null).withTags().build();
+        assertParseSuccess(parser, NAME_DESC_BOB + ROLE_DESC_BACKEND_DEVELOPER
+                        + WEBSITE_DESC_BOB + ADDRESS_DESC_BOB + DATE_DESC_BOB,
+                new AddCommand(expectedApplicationNoEmail));
     }
 
     @Test
@@ -185,11 +191,6 @@ public class AddCommandParserTest {
 
         // missing role prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_ROLE_BACKEND_DEVELOPER + EMAIL_DESC_BOB
-                        + WEBSITE_DESC_BOB + ADDRESS_DESC_BOB + DATE_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + ROLE_DESC_BACKEND_DEVELOPER + VALID_EMAIL_BOB
                         + WEBSITE_DESC_BOB + ADDRESS_DESC_BOB + DATE_DESC_BOB,
                 expectedMessage);
 

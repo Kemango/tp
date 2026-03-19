@@ -59,7 +59,7 @@ class JsonAdaptedApplication {
     public JsonAdaptedApplication(Application source) {
         companyName = source.getCompanyName().fullCompanyName;
         role = source.getRole().value;
-        email = source.getEmail().value;
+        email = source.getEmail() == null ? null : source.getEmail().value;
         website = source.getWebsite().websiteName;
         address = source.getAddress().value;
         date = source.getDate().value;

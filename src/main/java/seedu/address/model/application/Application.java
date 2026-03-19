@@ -32,10 +32,10 @@ public class Application {
      */
     public Application(CompanyName companyName, Role role, Email email, Website website,
                        Address address, Date date, Set<Tag> tags) {
-        requireAllNonNull(companyName, role, email, website, address, date, tags);
+        requireAllNonNull(companyName, role, website, address, date, tags);
         this.companyName = companyName;
         this.role = role;
-        this.email = email;
+        this.email = email; //can be null
         this.website = website;
         this.address = address;
         this.date = date;
@@ -106,7 +106,7 @@ public class Application {
         Application otherApplication = (Application) other;
         return companyName.equals(otherApplication.companyName)
                 && role.equals(otherApplication.role)
-                && email.equals(otherApplication.email)
+                && java.util.Objects.equals(email, otherApplication.email)
                 && website.equals(otherApplication.website)
                 && address.equals(otherApplication.address)
                 && date.equals(otherApplication.date)
@@ -121,15 +121,19 @@ public class Application {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        ToStringBuilder builder = new ToStringBuilder(this)
                 .add("companyName", companyName)
                 .add("role", role)
-                .add("email", email)
                 .add("website", website)
                 .add("address", address)
                 .add("date", date)
-                .add("tags", tags)
-                .toString();
+                .add("tags", tags);
+
+        if (email != null) {
+            builder.add("email", email);
+        }
+
+        return builder.toString();
     }
 
 }

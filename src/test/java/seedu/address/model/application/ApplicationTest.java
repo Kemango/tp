@@ -113,9 +113,9 @@ public class ApplicationTest {
     public void toStringMethod() {
         String expected = Application.class.getCanonicalName()
                 + "{companyName=" + ALICE.getCompanyName() + ", role=" + ALICE.getRole()
-                + ", email=" + ALICE.getEmail() + ", website=" + ALICE.getWebsite()
+                + ", website=" + ALICE.getWebsite()
                 + ", address=" + ALICE.getAddress() + ", date=" + ALICE.getDate()
-                + ", tags=" + ALICE.getTags() + "}";
+                + ", tags=" + ALICE.getTags() + ", email=" + ALICE.getEmail() + "}";
         assertEquals(expected, ALICE.toString());
     }
 
