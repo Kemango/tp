@@ -193,7 +193,7 @@ public class AddCommandParserTest {
                         + WEBSITE_DESC_AMY + ADDRESS_DESC_AMY + DATE_DESC_AMY + STATUS_DESC_AMY,
                 new AddCommand(expectedApplication));
 
-        // missing email prefix
+        // missing email
         Application expectedApplicationNoEmail = new ApplicationBuilder(BOB).withEmail(null).withTags().build();
         assertParseSuccess(parser, NAME_DESC_BOB + ROLE_DESC_BACKEND_DEVELOPER
                         + WEBSITE_DESC_BOB + ADDRESS_DESC_BOB + DATE_DESC_BOB + STATUS_DESC_BOB,
