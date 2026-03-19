@@ -277,16 +277,20 @@ public class EditCommand extends Command {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this)
+            ToStringBuilder builder = new ToStringBuilder(this)
                     .add("companyName", companyName)
                     .add("role", role)
-                    .add("email", email)
                     .add("website", website)
                     .add("address", address)
                     .add("date", date)
                     .add("status", status)
-                    .add("tags", tags)
-                    .toString();
+                    .add("tags", tags);
+
+            if (email != null) {
+                builder.add("email", email);
+            }
+
+            return builder.toString();
         }
     }
 }

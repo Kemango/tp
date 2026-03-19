@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_WEBSITE_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalApplications.ALICE;
 import static seedu.address.testutil.TypicalApplications.BOB;
+import static seedu.address.testutil.TypicalApplications.JETSTAR;
 
 import org.junit.jupiter.api.Test;
 
@@ -117,10 +118,22 @@ public class ApplicationTest {
     public void toStringMethod() {
         String expected = Application.class.getCanonicalName()
                 + "{companyName=" + ALICE.getCompanyName() + ", role=" + ALICE.getRole()
-                + ", email=" + ALICE.getEmail() + ", website=" + ALICE.getWebsite()
+                + ", website=" + ALICE.getWebsite()
                 + ", address=" + ALICE.getAddress() + ", date=" + ALICE.getDate()
-                + ", status=" + ALICE.getStatus() + ", tags=" + ALICE.getTags() + "}";
+                + ", status=" + ALICE.getStatus() + ", tags=" + ALICE.getTags()
+                + ", email=" + ALICE.getEmail() + "}";
         assertEquals(expected, ALICE.toString());
+    }
+
+    @Test
+    public void toStringMethod_emailAbsent() {
+        String expected = Application.class.getCanonicalName()
+                + "{companyName=" + JETSTAR.getCompanyName() + ", role=" + JETSTAR.getRole()
+                + ", website=" + JETSTAR.getWebsite()
+                + ", address=" + JETSTAR.getAddress() + ", date=" + JETSTAR.getDate()
+                + ", status=" + JETSTAR.getStatus() + ", tags=" + JETSTAR.getTags()
+                + "}";
+        assertEquals(expected, JETSTAR.toString());
     }
 
     @Test

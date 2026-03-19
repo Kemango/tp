@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalApplications.ALICE;
+import static seedu.address.testutil.TypicalApplications.JETSTAR;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -52,6 +53,14 @@ public class AddCommandTest {
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_APPLICATION, ()
                 -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_emailAbsent_messageOmitsEmail() throws Exception {
+        ModelStubAcceptingApplicationAdded modelStub = new ModelStubAcceptingApplicationAdded();
+        AddCommand command = new AddCommand(JETSTAR);
+        CommandResult result = command.execute(modelStub);
+        assertFalse(result.getFeedbackToUser().contains("Email:"));
     }
 
     @Test

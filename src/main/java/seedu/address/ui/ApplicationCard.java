@@ -55,7 +55,7 @@ public class ApplicationCard extends UiPart<Region> {
         companyName.setText(application.getCompanyName().fullCompanyName);
         role.setText(application.getRole().value);
         address.setText(application.getAddress().value);
-        email.setText(application.getEmail().value);
+        email.setText(application.getEmail() == null ? "" : application.getEmail().value);
         date.setText(application.getDate().value);
         status.setText(application.getStatus().toString());
         application.getTags().stream()

@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static seedu.address.storage.JsonAdaptedApplication.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalApplications.BENSON;
@@ -13,12 +14,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.application.Address;
+import seedu.address.model.application.Application;
 import seedu.address.model.application.CompanyName;
 import seedu.address.model.application.Date;
 import seedu.address.model.application.Email;
 import seedu.address.model.application.Role;
 import seedu.address.model.application.Status;
 import seedu.address.model.application.Website;
+import seedu.address.testutil.ApplicationBuilder;
 
 public class JsonAdaptedApplicationTest {
     private static final String INVALID_COMPANY_NAME = "R@chel";
@@ -90,11 +93,15 @@ public class JsonAdaptedApplicationTest {
     }
 
     @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
-        JsonAdaptedApplication application = new JsonAdaptedApplication(VALID_COMPANY_NAME, VALID_ROLE, null,
-                VALID_WEBSITE, VALID_ADDRESS, VALID_DATE, VALID_STATUS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
+    public void constructor_nullEmail_roundTripSuccess() throws Exception {
+        Application application = new ApplicationBuilder(BENSON)
+                .withEmail(null)
+                .build();
+
+        JsonAdaptedApplication jsonApp = new JsonAdaptedApplication(application);
+        Application converted = jsonApp.toModelType();
+
+        assertNull(converted.getEmail());
     }
 
     @Test
@@ -174,5 +181,4 @@ public class JsonAdaptedApplicationTest {
                         VALID_ADDRESS, VALID_DATE, VALID_STATUS, invalidTags);
         assertThrows(IllegalValueException.class, application::toModelType);
     }
-
 }

@@ -39,10 +39,11 @@ public class Messages {
         final StringBuilder builder = new StringBuilder();
         builder.append(application.getCompanyName())
                 .append("; Role: ")
-                .append(application.getRole())
-                .append("; Email: ")
-                .append(application.getEmail())
-                .append("; Website: ")
+                .append(application.getRole());
+
+        appendIfPresent(builder, "Email", application.getEmail());
+
+        builder.append("; Website: ")
                 .append(application.getWebsite())
                 .append("; Address: ")
                 .append(application.getAddress())
@@ -55,4 +56,15 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Checks if field is null. Used specifically for optional fields.
+     */
+    private static void appendIfPresent(StringBuilder builder, String label, Object value) {
+        if (value != null) {
+            builder.append("; ")
+                    .append(label)
+                    .append(": ")
+                    .append(value);
+        }
+    }
 }
