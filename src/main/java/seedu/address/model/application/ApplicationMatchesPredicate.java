@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
@@ -13,6 +14,8 @@ import seedu.address.model.tag.Tag;
  * All matching is case-insensitive and partial.
  */
 public class ApplicationMatchesPredicate implements Predicate<Application> {
+    private static final Logger logger = Logger.getLogger(ApplicationMatchesPredicate.class.getName());
+
     private final String nameKeyword;
     private final String roleKeyword;
     private final String emailKeyword;
@@ -57,84 +60,102 @@ public class ApplicationMatchesPredicate implements Predicate<Application> {
 
     @Override
     public boolean test(Application application) {
-        if (nameKeyword != null) {
-            if (!application.getCompanyName().toString().toLowerCase()
-                    .contains(nameKeyword)) {
-                return false;
-            }
-        }
+        logger.fine("Testing Application: " + application);
 
-        if (roleKeyword != null) {
-            if (!application.getRole().toString().toLowerCase()
-                    .contains(roleKeyword)) {
-                return false;
-            }
-        }
-
-        // optional field: find e/ should match applications with no email
-        if (emailKeyword != null) {
-            if (emailKeyword.isEmpty()) {
-                if (application.getEmail() != null) {
-                    return false;
-                }
-            } else {
-                if (application.getEmail() == null
-                        || !application.getEmail().toString().toLowerCase()
-                        .contains(emailKeyword)) {
-                    return false;
-                }
-            }
-
-        }
-
-        if (websiteKeyword != null) {
-            if (websiteKeyword.isEmpty()) {
-                if (application.getWebsite() != null) {
-                    return false;
-                }
-            } else {
-                if (application.getWebsite() == null
-                        || !application.getWebsite().toString().toLowerCase()
-                        .contains(websiteKeyword)) {
-                    return false;
-                }
-            }
-        }
-
-        if (addressKeyword != null) {
-            if (addressKeyword.isEmpty()) {
-                if (application.getAddress() != null) {
-                    return false;
-                }
-            } else {
-                if (application.getAddress() == null
-                        || !application.getAddress().toString().toLowerCase()
-                        .contains(addressKeyword)) {
-                    return false;
-                }
-            }
-        }
-
-        if (dateKeyword != null) {
-            if (!application.getDate().toString().toLowerCase()
-                    .contains(dateKeyword)) {
-                return false;
-            }
-        }
-
-        if (statusKeyword != null) {
-            if (!application.getStatus().toString().toLowerCase()
-                    .contains(statusKeyword)) {
-                return false;
-            }
-        }
-
-        if (!matchTags(tagKeywords, application.getTags())) {
-            return false;
-        }
-
-        return true;
+        boolean result = matchName(application)
+                && matchRole(application)
+                && matchEmail(application)
+                && matchWebsite(application)
+                && matchAddress(application)
+                && matchDate(application)
+                && matchStatus(application)
+                && matchTags(tagKeywords, application.getTags());
+        logger.fine("Match result: " + result);
+        return result;
     }
+
+    /**
+     * Each match method checks if the corresponding field in the application matches the keyword.
+     * If the keyword is null, it matches all values for that field.
+     */
+    private boolean matchName(Application application) {
+        return matchCompulsoryField(nameKeyword,
+                application.getCompanyName().toString());
+    }
+
+    /** Similar to matchName, but for role. */
+    private boolean matchRole(Application application) {
+        return matchCompulsoryField(roleKeyword,
+                application.getRole().toString());
+    }
+
+    /** Similar to matchName, but for date. */
+    private boolean matchDate(Application application) {
+        return matchCompulsoryField(dateKeyword,
+                application.getDate().toString());
+    }
+
+    /** Similar to matchName, but for status. */
+    private boolean matchStatus(Application application) {
+        return matchCompulsoryField(statusKeyword,
+                application.getStatus().toString());
+    }
+
+    /**
+     * Each match method checks if the corresponding field in the application matches the keyword.
+     * If the keyword is null, it matches all values for that field.
+     * For optional fields here (email, website, address),
+     * if the keyword is empty, it matches applications with no value for that field.
+     */
+    private boolean matchEmail(Application application) {
+        return matchOptionalField(emailKeyword,
+                application.getEmail() == null ? null : application.getEmail().toString());
+    }
+
+    /** Similar to matchEmail, but for website. */
+    private boolean matchWebsite(Application application) {
+        return matchOptionalField(websiteKeyword,
+                application.getWebsite() == null ? null : application.getWebsite().toString());
+    }
+
+    /** Similar to matchEmail, but for address. */
+    private boolean matchAddress(Application application) {
+        return matchOptionalField(addressKeyword,
+                application.getAddress() == null ? null : application.getAddress().toString());
+    }
+
+
+    /**
+     * Returns true if the application's field matches the keyword.
+     * If the keyword is null, it matches all values for that field.
+     */
+    private boolean matchCompulsoryField(String keyword, String value) {
+        if (keyword == null) {
+            return true;
+        }
+        return value.toLowerCase().contains(keyword);
+    }
+
+    /**
+     * Returns true if the application's field matches the keyword.
+     * If the keyword is null, it matches all values for that field.
+     * If the keyword is empty, it matches applications with no value for that field.
+     */
+    private boolean matchOptionalField(String keyword, String value) {
+        if (keyword == null) {
+            return true;
+        }
+
+        // search for empty keyword (e.g. e/ should match applications with no email)
+        if (keyword.isEmpty()) {
+            return value == null;
+        }
+
+        // normal matching: search for keyword in the value
+        // (e.g. e/gmail should match applications with email containing "gmail")
+        return value != null && value.toLowerCase().contains(keyword);
+    }
+
 
     /**
      * Returns true if the application's tags match the tag keywords.
