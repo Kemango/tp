@@ -13,22 +13,33 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String HELP_MESSAGE = "InternTracker – Command Help\n\n"
+    public static final String HELP_MESSAGE = "HireME – Command Help\n\n"
             + "Track your internship applications using the commands below.\n\n"
             + "add: Add a new application.\n"
-            + "  Format: add n/COMPANY r/ROLE s/STATUS d/DATE [j/DESCRIPTION] [e/EMAIL] [w/WEBSITE]\n"
-            + "  Status must be Pending, Rejected, or Offered. Date must be DD-MM-YYYY.\n"
-            + "  Example: add n/Google r/Software Engineer s/Pending d/19-02-2026 e/hr@google.com\n\n"
-            + "list: Display all saved applications.\n\n"
+            + "  Format: add n/COMPANY_NAME r/ROLE d/DATE s/STATUS [e/EMAIL] [w/WEBSITE] [a/ADDRESS] [t/TAG]...\n"
+            + "  Status must be Pending, Offered, or Rejected. Date must be DD-MM-YYYY.\n"
+            + "  Example: add n/Google r/Software Engineer d/19-02-2026 s/Pending e/hr@gmail.com\n\n"
             + "edit: Update an application by its list number.\n"
-            + "  Format: edit INDEX [n/COMPANY] [r/ROLE] [s/STATUS] [d/DATE] "
-            + "[j/DESCRIPTION] [e/EMAIL] [w/WEBSITE]\n"
+            + "  Format: edit INDEX [n/COMPANY_NAME] [r/ROLE] [e/EMAIL] [w/WEBSITE] [a/ADDRESS] [d/DATE] "
+            + "[s/STATUS] [t/TAG]...\n"
             + "  At least one field must be provided.\n"
-            + "  Example: edit 1 s/Offered\n\n"
+            + "  Example: edit 1 r/Backend Developer Intern e/johndoe@gmail.com\n\n"
             + "delete: Remove an application by its list number.\n"
             + "  Format: delete INDEX\n"
-            + "  Example: delete 3\n\n"
-            + "help: Show this help message.";
+            + "  Example: delete 1\n\n"
+            + "find: Find applications by field (case-insensitive, partial match).\n"
+            + "  Format: find [n/NAME] [r/ROLE] [e/EMAIL] [w/WEBSITE] [a/ADDRESS] [d/DATE] [s/STATUS] [t/TAG]...\n"
+            + "  At least one search field must be provided.\n"
+            + "  Example: find n/Google r/Backend Developer s/Pending\n\n"
+            + "open: Open the notes for an application.\n"
+            + "  Format: open INDEX [m/CHOICE_OF_EDIT]\n"
+            + "  m/ must be true or false. Defaults to false (view only).\n"
+            + "  Example: open 1 m/true\n\n"
+            + "summary: Show a summary of application statistics.\n\n"
+            + "list: Display all saved applications.\n\n"
+            + "clear: Remove all applications.\n\n"
+            + "help: Show this help message.\n\n"
+            + "exit: Exit the program.";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
