@@ -35,12 +35,16 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private NotesWindow notesWindow;
+    private SummaryWindow summaryWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem summaryMenuItem;
 
     @FXML
     private StackPane applicationListPanelPlaceholder;
@@ -67,6 +71,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        summaryWindow = new SummaryWindow();
         notesWindow = new NotesWindow();
     }
 
@@ -76,6 +81,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(summaryMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -150,6 +156,30 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the summary window or focuses on it if already open (called from menu).
+     */
+    @FXML
+    public void handleSummaryMenu() {
+        try {
+            executeCommand("summary");
+        } catch (CommandException | ParseException e) {
+            logger.info("Failed to execute summary from menu: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Opens the summary window with the given content, or focuses on it if already open.
+     */
+    public void handleSummary(String summaryText) {
+        summaryWindow.setContent(summaryText);
+        if (!summaryWindow.isShowing()) {
+            summaryWindow.show();
+        } else {
+            summaryWindow.focus();
+        }
+    }
+
+    /**
      * Opens the notes window in read-only mode for the selected application.
      */
     private void handleShowNotes() {
@@ -188,6 +218,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        summaryWindow.hide();
         notesWindow.hide();
         primaryStage.hide();
     }
@@ -209,6 +240,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowSummary()) {
+                handleSummary(commandResult.getFeedbackToUser());
             }
 
             if (commandResult.isShowNote()) {

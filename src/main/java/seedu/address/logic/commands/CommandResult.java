@@ -42,6 +42,10 @@ public class CommandResult {
         return uiAction == UiAction.SHOW_HELP;
     }
 
+    public boolean isShowSummary() {
+        return uiAction == UiAction.SHOW_SUMMARY;
+    }
+
     public boolean isExit() {
         return uiAction == UiAction.EXIT;
     }

@@ -5,6 +5,7 @@ package seedu.address.logic.commands;
  */
 public enum UiAction {
     NONE,
+    SHOW_SUMMARY,
     SHOW_HELP,
     SHOW_NOTE,
     EDIT_NOTE,
