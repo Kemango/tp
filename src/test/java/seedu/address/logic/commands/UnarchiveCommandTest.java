@@ -64,7 +64,8 @@ public class UnarchiveCommandTest {
         Application archivedApplication = getArchivedVersion(applicationToArchive);
         model.setApplication(applicationToArchive, archivedApplication);
 
-        model.updateFilteredApplicationList(application -> application.getTags().contains(Model.ARCHIVED_TAG));
+        model.updateFilteredApplicationList(application -> application
+                .getTags().contains(Model.ARCHIVED_TAG));
 
         Index outOfBoundIndex = INDEX_SECOND_APPLICATION;
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getApplicationList().size());
