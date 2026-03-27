@@ -51,7 +51,6 @@ public class UnarchiveCommandTest {
         Application expectedApplicationToUnarchive = expectedModel.getFilteredApplicationList()
                 .get(INDEX_FIRST_APPLICATION.getZeroBased());
         expectedModel.setApplication(expectedApplicationToUnarchive, expectedUnarchivedApplication);
-        expectedModel.updateFilteredApplicationList(Model.PREDICATE_SHOW_UNARCHIVED_APPLICATIONS);
 
         assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
     }
