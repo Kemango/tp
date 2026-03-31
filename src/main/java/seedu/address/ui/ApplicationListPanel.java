@@ -27,7 +27,7 @@ public class ApplicationListPanel extends UiPart<Region> {
      */
     public ApplicationListPanel(ObservableList<Application> applicationList) {
         super(FXML);
-        
+
         for (int i = 0; i < NUM_COLUMNS; i++) {
             ColumnConstraints col = new ColumnConstraints();
             col.setPercentWidth(100.0 / NUM_COLUMNS);
@@ -35,7 +35,7 @@ public class ApplicationListPanel extends UiPart<Region> {
         }
 
         fillGrid(applicationList);
-        
+
         applicationList.addListener((ListChangeListener<Application>) change -> {
             fillGrid(applicationList);
         });
