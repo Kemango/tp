@@ -4,6 +4,8 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 
 import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,8 +14,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -97,7 +97,10 @@ public class NotesWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleSave() {
-        if (saveCallback == null) return;
+        if (saveCallback == null) {
+            return;
+        }
+
         boolean success = saveCallback.apply(notesTextArea.getText());
 
         if (!success) {
