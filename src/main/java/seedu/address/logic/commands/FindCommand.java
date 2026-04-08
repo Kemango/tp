@@ -18,13 +18,14 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all applications using the given prefixes (case-insensitive, partial match).\n"
-            + "Matching outcome will be displayed as a list with index numbers.\n"
-            + "Format: find prefix/keyword ...\n"
-            + "Example: "
-            + COMMAND_WORD + " n/Grab\n"
-            + COMMAND_WORD + " r/Backend Developer\n"
-            + COMMAND_WORD + " n/Google r/Backend Developer s/Pending";
+            + ": Finds applications using the given fields (prefix + keyword).\n"
+            + "Each prefix(e.g. n/) specifies a field, and keyword is used for filtering "
+            + "(case-insensitive, substring partial match).\n"
+            + "At least one field must be provided.\n"
+            + "For optional fields (email, website, address),"
+            + " using an empty keyword (e.g. find e/) matches applications with no value for that field.\n"
+            + "Format: find [n/NAME] [r/ROLE] [e/EMAIL] [w/WEBSITE] [a/ADDRESS] [d/DATE] [s/STATUS] [t/TAG]\n"
+            + "Example: " + COMMAND_WORD + " n/Google r/Backend Developer s/Pending";
 
     private final Predicate<Application> predicate;
 
