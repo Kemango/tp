@@ -52,6 +52,7 @@ public class SummaryCommand extends Command {
 
         return new CommandResult(summaryText, UiAction.SHOW_SUMMARY);
     }
+
     /**
      * Counts the number of non-archived applications with the given status.
      *
@@ -65,6 +66,7 @@ public class SummaryCommand extends Command {
                 .filter(a -> a.getStatus().toString().equalsIgnoreCase(status))
                 .count();
     }
+
     /**
      * Builds the summary text displaying application statistics.
      *
