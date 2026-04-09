@@ -97,7 +97,6 @@ public class LogicManager implements Logic {
         if (app == null) {
             return false;
         }
-        
         try {
             model.saveApplicationNotes(notes);
             storage.saveAddressBook(model.getAddressBook());
