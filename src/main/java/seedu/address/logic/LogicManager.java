@@ -94,7 +94,7 @@ public class LogicManager implements Logic {
     @Override
     public boolean saveApplicationNotes(String notes) {
         Application app = model.getSelectedNotesApplication();
-        if (app == null || !model.hasApplication(app)) {
+        if (app == null) {
             return false;
         }
         model.saveApplicationNotes(notes);
