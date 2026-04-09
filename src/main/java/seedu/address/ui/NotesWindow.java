@@ -15,6 +15,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.NotesSaveStatus;
 
 /**
  * Controller for the notes window.
@@ -24,8 +25,10 @@ public class NotesWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(NotesWindow.class);
     private static final String FXML = "NotesWindow.fxml";
+    private static final int NOTES_WINDOW_WIDTH = 500;
+    private static final int NOTES_WINDOW_HEIGHT = 400;
 
-    private Function<String, Boolean> saveCallback;
+    private Function<String, NotesSaveStatus> saveCallback;
     private boolean isEditMode;
 
     @FXML
@@ -47,10 +50,10 @@ public class NotesWindow extends UiPart<Stage> {
      */
     public NotesWindow(Stage root) {
         super(FXML, root);
-        root.setMinWidth(500);
-        root.setMinHeight(400);
-        root.setWidth(500);
-        root.setHeight(400);
+        root.setMinWidth(NOTES_WINDOW_WIDTH);
+        root.setMinHeight(NOTES_WINDOW_HEIGHT);
+        root.setWidth(NOTES_WINDOW_WIDTH);
+        root.setHeight(NOTES_WINDOW_HEIGHT);
     }
 
     /**
@@ -81,7 +84,7 @@ public class NotesWindow extends UiPart<Stage> {
     /**
      * Sets up the window in edit mode with the given notes and save callback.
      */
-    public void setEditMode(String notes, Function<String, Boolean> saveCallback, String companyName) {
+    public void setEditMode(String notes, Function<String, NotesSaveStatus> saveCallback, String companyName) {
         this.saveCallback = saveCallback;
         this.isEditMode = true;
         updateTitle(companyName);
@@ -116,9 +119,7 @@ public class NotesWindow extends UiPart<Stage> {
     private void updateTitle(String companyName) {
         if (isEditMode) {
             getRoot().setTitle("Notes (Edit) - " + companyName);
-        }
-
-        if (!isEditMode) {
+        } else {
             getRoot().setTitle("Notes (View) - " + companyName);
         }
     }
@@ -132,16 +133,21 @@ public class NotesWindow extends UiPart<Stage> {
             return;
         }
 
-        boolean success = saveCallback.apply(notesTextArea.getText());
+        NotesSaveStatus saveStatus = saveCallback.apply(notesTextArea.getText());
 
-        if (!success) {
+        if (saveStatus == NotesSaveStatus.APPLICATION_UNAVAILABLE) {
+            showApplicationUnavailableAndClose();
+            return;
+        }
+
+        if (saveStatus == NotesSaveStatus.STORAGE_FAILURE) {
             showSaveFailure();
-            schedulePause(Duration.seconds(1), event -> hide());
+            schedulePause(Duration.seconds(1.5), event -> resetSaveButton());
             return;
         }
 
         showSaveSuccess();
-        schedulePause(Duration.seconds(1), event -> resetSaveButton());
+        schedulePause(Duration.seconds(1.5), event -> resetSaveButton());
     }
 
     /**
@@ -173,6 +179,22 @@ public class NotesWindow extends UiPart<Stage> {
         }
         saveButton.setDisable(true);
         logger.warning("Failed to save notes.");
+    }
+
+    /**
+     * Shows that the currently opened application is no longer available, then closes the window.
+     */
+    public void showApplicationUnavailableAndClose() {
+        getRoot().setTitle("Notes (Unavailable)");
+        saveButton.setVisible(true);
+        saveButton.setManaged(true);
+        saveButton.setText("Application deleted");
+        if (!saveButton.getStyleClass().contains("danger")) {
+            saveButton.getStyleClass().add("danger");
+        }
+        saveButton.setDisable(true);
+        logger.warning("Closing notes window because the selected application no longer exists.");
+        schedulePause(Duration.seconds(1.5), event -> hide());
     }
 
     /**
