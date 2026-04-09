@@ -68,8 +68,8 @@ public class HelpWindow extends UiPart<Stage> {
 
         helpMessage.getChildren().addAll(section("edit",
                 "Update an application by its list number.",
-                "edit INDEX [n/COMPANY_NAME] [r/ROLE] [e/EMAIL] [w/WEBSITE] " +
-                        "[a/ADDRESS] [d/DATE] [s/STATUS] [t/TAG]...",
+                "edit INDEX [n/COMPANY_NAME] [r/ROLE] [e/EMAIL] [w/WEBSITE] "
+                        + "[a/ADDRESS] [d/DATE] [s/STATUS] [t/TAG]...",
                 "At least one field must be provided.",
                 "edit 1 r/Backend Developer Intern e/johndoe@gmail.com"
         ));
