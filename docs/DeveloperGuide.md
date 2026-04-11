@@ -26,7 +26,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams are in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams are in this document `docs/diagrams` folder.
 </div>
 
 ### Architecture
@@ -175,9 +175,27 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes noteworthy implementation details of features that are currently present in HireME.
 
+### Find feature
+
+The `find` feature filters the displayed application list based on one or more user-provided search fields.
+
+The sequence diagram below illustrates the interactions when the user executes `find n/google`:
+
+![Interactions Inside the Logic Component for the `find n/google` Command](images/FindSequenceDiagram.png)
+
+`find` is implemented using `FindCommandParser`, `ApplicationMatchesPredicate`, and `FindCommand`:
+
+* `AddressBookParser` delegates `find` input to `FindCommandParser`.
+* `FindCommandParser` parses the supplied prefixed fields and constructs an `ApplicationMatchesPredicate`.
+* `FindCommand` applies that matching condition through `Model#updateFilteredApplicationList(...)`.
+
+
 ### Archive state and filtered list views
 
 Archive state is stored directly in `Application` as the boolean field `isArchived`.
+
+![Archive/filter sequence](images/ArchiveFilterSequenceDiagram.png)
+
 
 This affects multiple layers:
 
@@ -389,19 +407,27 @@ Manage applications faster than a typical mouse/GUI driven app.
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority  | As a … | I want to …                                                                              | So that I can…                                       |
-|-----------|--------|------------------------------------------------------------------------------------------|------------------------------------------------------|
-| `* * *`   | user   | add new company information (name, email, website, address, etc.)                        | organise my internship applications in one place     |
-| `* * *`   | user   | add an application status and application date                                           | track the progress of each internship application    |
-| `* * *`   | user   | delete a company entry                                                                   | remove applications that I no longer need            |
-| `* * *`   | user   | update the status of a job application                                                   | keep my application records accurate and up to date  |
-| `* * *`   | user   | list all my job applications                                                             | easily monitor my overall application progress       |
-| `* * *`   | user   | search for applications by fields such as company name, website, or application status   | find relevant applications quickly                   |
-| `* * *`   | user   | archive an application                                                                   | hide inactive applications without losing the record |
-| `* * *`   | user   | unarchive an application                                                                 | restore an archived application to active tracking   |
-| `* * *`   | user   | open notes for an application                                                            | record or review interview and preparation details   |
-| `* * *`   | user   | view a summary of my applications                                                        | understand my application progress at a glance       |
-| `* * *`   | user   | view help information                                                                    | recall command formats when needed                   |
+| Priority  | As a … | I want to …                                                                           | So that I can…                                        |
+|-----------|--------|---------------------------------------------------------------------------------------|-------------------------------------------------------|
+| `* * *`   | user   | add new company information (name, email, website, address, etc.)                     | organise my internship applications in one place      |
+| `* * *`   | user   | add an application status and application date                                        | track the progress of each internship application     |
+| `* * *`   | user   | delete a company entry                                                                | remove applications that I no longer need             |
+| `* * *`   | user   | update the status of a job application                                                | keep my application records accurate and up to date   |
+| `* * *`   | user   | list all my job applications                                                          | easily monitor my overall application progress        |
+| `* * *`   | user   | search for applications by fields such as company name, website, or application status | find relevant applications quickly                    |
+| `* * *`   | user   | archive an application                                                                | hide inactive applications without losing the record  |
+| `* * *`   | user   | unarchive an application                                                              | restore an archived application to active tracking    |
+| `* * *`   | user   | open notes for an application                                                         | record or review interview and preparation details    |
+| `* * *`   | user   | view a summary of my applications                                                     | understand my application progress at a glance        |
+| `* * *`   | user   | view help information                                                                 | recall command formats when needed                    |
+| `* *`     | user   | add tags to applications                                                              | group applications by interview stage or category     |
+| `* *`     | user   | clear optional fields such as email, website, or address when editing                 | keep my records accurate when details change          |
+| `* *`     | user   | search for applications using partial details                                         | avoid having to remember every application exactly   |
+| `* *`     | user   | switch between active and archived application views                                  | review past applications without cluttering my list   |
+| `* *`     | user   | open notes in view mode or edit mode                                                  | avoid accidental edits when I only want to review     |
+| `*`       | user   | clear all applications at once                                                        | reset my tracker quickly when starting over           |
+| `*`       | user   | access help and summary using keyboard shortcuts                                      | open supporting windows faster                        |
+| `*`       | user   | have the app remember my window size and position                                     | continue from a familiar workspace each time          |
 
 
 ## Use cases
@@ -589,8 +615,8 @@ Use case ends.
 
 Main Success Scenario:
 1. User requests to view help information (enters help).
-2. HireME opens the help window, or focuses it if it is already open.
-3. HireME displays the list of available commands and their formats in the help window.
+2. HireME opens the help window.
+3. HireME displays all available commands and their formats in the help window.
 4. User reads the command formats to learn/recall how to use the system.
 Use case ends.
 
@@ -621,8 +647,6 @@ Use case ends.
 ### Data Integrity
 - The application should validate all user inputs and reject invalid data with clear error messages without crashing.
 
-### Scalability
-- The application should remain functional and responsive with up to 1000 application entries stored.
 
 ---
 
@@ -993,7 +1017,7 @@ Expected:
     * number of archived applications
 
 2. Test case:
-   Open the same feature from the menu bar.
+   Press `F2`.
 
 Expected:
 * The same summary window is shown.
@@ -1048,9 +1072,3 @@ Expected:
    * The app starts normally.
    * Sample data is loaded.
 
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
